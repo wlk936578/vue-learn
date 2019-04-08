@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+      TodoList(M 模型层(保存数据,最为重要) V 视图层(显示数据) VM ) 数据驱动
+    </title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="inputValue" />
+      <button v-on:click="handleBtnClick">提交</button>
+      <ul>
+        <li v-for="item in list">{{ item }}</li>
+      </ul>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      // VM 层实现方式主要是 1.虚拟DOM 2.ES5 Object.defineProperty
+      let app = new Vue({
+        el: '#app',
+        data: {
+          list: [],
+          inputValue: ''
+        },
+        methods: {
+          handleBtnClick() {
+            this.list.push(this.inputValue);
+            this.inputValue = '';
+            console.log(this.inputValue);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

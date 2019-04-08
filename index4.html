@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JQuery TodoList(M 模型层 V 视图 P 控制器模式)</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="input" />
+      <button id="btn">提交</button>
+      <ul id="list"></ul>
+    </div>
+    <script src="./jquery.js"></script>
+    <script>
+      function Page() {}
+      $.extend(Page.prototype, {
+        init: function() {
+          this.bindEvents();
+        },
+        bindEvents: function() {
+          var btn = $('#btn');
+          btn.on('click', $.proxy(this.handleBtnClick, this)); // 改变 this 的指向
+          // 此时this 指向的是 Page
+        },
+        handleBtnClick: function() {
+          var inputElem = $('#input');
+          var inputValue = inputElem.val();
+          var ulElem = $('#list');
+          ulElem.append('<li>' + inputValue + '</li>');
+          inputElem.val('');
+        }
+      });
+      let page = new Page();
+      page.init();
+    </script>
+  </body>
+</html>
