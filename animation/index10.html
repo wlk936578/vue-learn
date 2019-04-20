@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>vue 动画 的 封装</title>
+</head>
+<style>
+	/* 动画的显示状态 enter */
+	.fade-enter {
+		opacity: 0
+	}
+
+	/* 动画运行后的监听 */
+	.fade-enter-active {
+		transition: opacity 1s
+	}
+
+	/* 动画的隐藏状态 leave-to */
+	.fade-leave-to {
+		opacity: 0
+	}
+
+	.fade-leave-active {
+		transition: opacity 1s
+	}
+</style>
+
+<body>
+	<div id="app">
+		<fade :show="show">
+			<div>hello world</div>
+		</fade>
+		<fade :show="show">
+			<h1>hello world</h1>
+		</fade>
+		<button @click="handleClick">切换</button>
+	</div>
+	<script src="../vue.js"></script>
+	<script>
+		Vue.component('fade', {
+			props: ['show'],
+			// 使用v-if 来判断是否执行动效 
+			template: `
+				<transition name="fade">
+					<slot v-if="show"></slot>
+				</transition>
+			`
+		})
+		let app = new Vue({
+			el: '#app',
+			data: {
+				content: 'hello world',
+				show: false
+			},
+			methods: {
+				handleClick() {
+					this.show = !this.show
+				}
+			},
+		});
+	</script>
+</body>
+
+</html>

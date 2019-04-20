@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>父子组件传值</title>
+</head>
+
+<body>
+	<div id="app">
+		<!-- 加了冒号后，会变成数字 -->
+		<counter :count="0" @change="handleChange"></counter>
+		<counter :count="1" @change="handleChange"></counter>
+		<div>{{total}}</div>
+	</div>
+
+	<script src="./vue.js"></script>
+	<script>
+		var counter = {
+			props: ['count'],
+			template: '<div @click="handleClick">{{number}}</div>',
+			data: function () {
+				return {
+					number: this.count // 此处可将 prop 属性值 赋给 data 里 避免 耦合
+				}
+			},
+			methods: {
+				handleClick: function () {
+					this.number = this.number + 2 // 不可直接修改props里的值，实际是为了避免数据的耦合
+					this.$emit('change', 2)
+				}
+			},
+		}
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				total: 1
+			},
+			components: {
+				counter
+			},
+			methods: {
+				handleChange(step) {
+					console.log(step)
+					this.total += step
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>

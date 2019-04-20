@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>计算属性，方法，侦听器</title>
+</head>
+
+<body>
+	<div id="app">
+		{{fullName}}
+		{{age}}
+	</div>
+
+	<script src="./vue.js"></script>
+	<script>
+		// 生命周期函数就是vue实例在某个时间点会自动执行的函数
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				firstName: 'Dell',
+				lastName: 'Lee',
+				fullName: 'Dell Lee',
+				age: 28
+			},
+			// computed: {
+			// 	fullName() { // 计算属性会缓存原本的属性值，相关值没有改变，就不会有变化
+			// 		console.log('计算了一次')
+			// 		return this.firstName + ' ' + this.lastName // 常用于多个属性值影响一个属性值
+			// 	}
+			// },
+			// methods: {
+			// 	fullName() { // 该方法性能不如 computed 计算属性(不会缓存属性，只要页面有变化就会重新调用)
+			// 		console.log('计算了一次')
+			// 		return this.firstName + ' ' + this.lastName
+			// 	}
+			// },
+			watch: { // 常用于 一个值 影响 多个相关值的变化
+				firstName() { // 首次加载时，如果已经赋值，将不会有初次变化
+					console.log('计算了一次')
+					this.fullName = this.firstName + '' + this.lastName
+				},
+				lastName() {
+					console.log('计算了一次')
+					this.fullName = this.firstName + '' + this.lastName
+				}
+			},
+		});
+	</script>
+</body>
+
+</html>

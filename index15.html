@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>模板语法 set方法</title>
+</head>
+
+<body>
+	<div id="app">
+		<table>
+			<tbody>
+				<!-- <tr>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>3</td>
+				</tr> -->
+				<!-- is属性 绑定(tr,li,option)标签 -->
+				<tr is="row"></tr>
+				<tr is="row"></tr>
+				<tr is="row"></tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src="./vue.js"></script>
+	<script>
+		Vue.component('row', {
+			data: function () { // 组件内的data必为函数，需要return 对象来保证data数据的独一无
+				return {
+					content: 'this is a row1'
+				}
+			},
+			template: '<tr><td>{{content}}</td></tr>'
+		})
+		let vm = new Vue({
+			el: '#app',
+			data: {
+
+			}
+		});
+	</script>
+</body>
+
+</html>

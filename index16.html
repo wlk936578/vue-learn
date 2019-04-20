@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>组件进阶知识</title>
+</head>
+
+<body>
+	<div id="app">
+		<!-- <div ref="hello" @click="handleClick" ref="hello">hello world </div> -->
+		<counter @change="handleChange" ref="count1"></counter>
+		<counter @change="handleChange" ref="count2"></counter>
+		<div>{{total}}</div>
+	</div>
+
+	<script src="./vue.js"></script>
+	<script>
+		Vue.component('counter', {
+			template: '<div @click="handleClick" >{{number}}</div>',
+			data: function () {
+				return {
+					number: 0
+				}
+			},
+			methods: {
+				handleClick: function () {
+					this.number++
+					this.$emit('change')
+				}
+			}
+		})
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				total: 0
+			},
+			methods: {
+				handleClick() {
+					console.log('click')
+					console.log(this.$refs.hello.innerHTML)
+
+				},
+				handleChange() {
+					console.log('change')
+					txt1 = parseInt(this.$refs.count1.number)
+					txt2 = parseInt(this.$refs.count2.number)
+					this.total = txt1 + txt2
+					console.log(this.total)
+				}
+			},
+		});
+	</script>
+</body>
+
+</html>

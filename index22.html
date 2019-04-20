@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Vue中的插槽(slot)</title>
+</head>
+
+<body>
+	<div id="app">
+		<child>
+			<!-- 必须是 template 为 外壳 传递slot的相关参数(作用域插槽) -->
+			<!--  dom结构 应该由外部传递进来的时候(如在循环中) -->
+			<template slot-scope="props">
+				<li>
+					{{props.item}}
+				</li>
+			</template>
+		</child>
+	</div>
+
+	<script src="./vue.js"></script>
+	<script>
+		Vue.prototype.bus = new Vue()
+		Vue.component('child', {
+			props: ['content'],
+			data() {
+				return {
+					list: [1, 2, 3, 4]
+				}
+			},
+			template: `<div>
+									<ul>
+										<slot v-for="item of list" :item=item ></slot>	
+									</ul>
+								</div>`
+		})
+		var vm = new Vue({
+			el: '#app',
+		});
+	</script>
+</body>
+
+</html>

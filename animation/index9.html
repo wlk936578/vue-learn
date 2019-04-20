@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>vue 中 列表的 过渡</title>
+	<style>
+		.fade-enter,
+		.fade-leave-to {
+			opacity: 0;
+		}
+
+		.fade-enter-active,
+		.fade-leave-active {
+			transition: opacity 1s
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<!-- 以组的形式 来进行过渡 可以使用 transition-group  -->
+		<transition-group name="fade">
+			<div v-for="item of list" :key="item.id">{{item.title}}</div>
+		</transition-group>
+		<button @click="handleBtnClick">Add</button>
+	</div>
+	<script src="../vue.js"></script>
+	<script>
+		let count = 0;
+		let app = new Vue({
+			el: '#app',
+			data: {
+				list: []
+			},
+			methods: {
+				handleBtnClick() {
+					this.list.push({
+						id: count++,
+						title: 'hello world'
+					})
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>

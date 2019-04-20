@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>组件参数校验与非props特性</title>
+</head>
+
+<body>
+	<div id="app">
+		<!-- 加了冒号后，会变成数字 -->
+		<!-- 非 props 属性 会在 dom 节点上，成为自定义属性 -->
+		<child :content="'123456'"></child>
+	</div>
+
+	<script src="./vue.js"></script>
+	<script>
+		Vue.component('child', {
+			props: {
+				// content: [Number,String] // 属性可以进行约束(将约定的类型放入数组中)
+				content: {
+					type: String,
+					required: true, // 设置是否为必传
+					default: 'default value', // 若 required 为 false 时，则可设置默认值
+					validator: function (val) { // 校验更复杂的自定义校验器
+						return val.length > 5
+					}
+				}
+			},
+			template: '<div>Child</div>'
+		})
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				total: 1
+			}
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>非父子间的传值(Bus/总线/发布订阅模式/观察者模式)</title>
+</head>
+
+<body>
+	<div id="app">
+		<!-- 可以使用click.native 直接 绑定到原生事件上 -->
+		<child content="Dell"></child>
+		<child content="Lee"></child>
+	</div>
+
+	<script src="./vue.js"></script>
+	<script>
+		Vue.prototype.bus = new Vue()
+		Vue.component('child', {
+			props: {
+				content: String
+			},
+			data() {
+				return {
+					name: this.content
+				}
+			},
+			template: '<div @click="handleClick">{{name}}</div>',
+			methods: {
+				handleClick: function () {
+					this.bus.$emit('change', this.content) // 此处触发传值(订阅)
+				}
+			},
+			mounted() {
+				this.bus.$on('change', msg => { // 此处监听 change事件 并 利用回调 进行 触发事件后的 相关操作
+					this.name = msg
+				})
+			},
+		})
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				total: 1
+			}
+		});
+	</script>
+</body>
+
+</html>

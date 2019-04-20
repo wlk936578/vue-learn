@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>vue 中 组件的 过渡</title>
+	<style>
+		.fade-enter,
+		.fade-leave-to {
+			opacity: 0;
+		}
+
+		.fade-enter-active,
+		.fade-leave-active {
+			transition: opacity 1s
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<!-- 如果不加key值，会导致 vue 复用dom 不会出现动效 -->
+		<!-- mode 为 in-out 展示的dom会先显示，需要隐藏的dom后隐藏 out-in 相反 -->
+		<transition name="fade" mode="out-in">
+			<!-- 一般组件 动效过渡 -->
+			<!-- <child v-if="show"></child>
+			<child-one v-else></child-one> -->
+
+			<!-- 动态组件的 动效过渡 -->
+			<component :is="type"></component>
+		</transition>
+		<button @click="handleClick">切换</button>
+	</div>
+	<script src="../vue.js"></script>
+	<script>
+		Vue.component('child', {
+			template: '<div>child</div>'
+		})
+		Vue.component('child-one', {
+			template: '<div>child-one</div>'
+		})
+		let app = new Vue({
+			el: '#app',
+			data: {
+				content: 'hello world',
+				show: true,
+				type: 'child'
+			},
+			methods: {
+				handleClick() {
+					this.show = !this.show
+					this.type = this.type === 'child' ? 'child-one' : 'child'
+				}
+			},
+		});
+	</script>
+</body>
+
+</html>

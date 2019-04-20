@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>vue 同时使用 过渡(即第一次显示) 和 动画 效果</title>
+	<link rel="stylesheet" href="../animate.css">
+	<style>
+		.fade-enter,
+		.fade-leave-to {
+			opacity: 0;
+		}
+
+		.fade-enter-active,
+		.fade-leave-active {
+			transition: opacity 3s
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<!-- animate css 动效 需要 先赋予类 animated 以及你想要的效果 -->
+		<!-- type 指向 谁的动画时长较长 则 谁的时长为准 -->
+		<transition type="transition" name="fade" appear enter-active-class='animated swing fade-enter-active'
+			leave-active-class='animated shake fade-leave-active' appear-active-class="animated swing">
+			<div v-if="show">hello world</div>
+		</transition>
+		<button @click="handleClick">切换</button>
+	</div>
+	<script src="../vue.js"></script>
+	<script>
+		let app = new Vue({
+			el: '#app',
+			data: {
+				content: 'hello world',
+				show: true
+			},
+			methods: {
+				handleClick() {
+					this.show = !this.show
+				}
+			},
+		});
+	</script>
+</body>
+
+</html>

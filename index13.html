@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>模板语法 条件渲染</title>
+</head>
+
+<body>
+	<div id="app">
+		<!-- 小技巧 of 可以 遍历 数组 和 对象 -->
+		<template v-for="(item,index) of list">
+			<div :key="item.id">{{item.value}} {{index}}</div>
+			<span>{{item.value}}</span>
+		</template>
+		<template v-for="(item,key) of userInfo">
+			<div :key="key">{{item}} {{key}}</div>
+			<span>{{item}}</span>
+		</template>
+	</div>
+
+	<script src="./vue.js"></script>
+	<script>
+		// 生命周期函数就是vue实例在某个时间点会自动执行的函数
+		/*
+		 * 注意：当我们尝试给数组做修改时，不能直接通过下标的形式来改变数组
+		 * 可用的数组方法有 pop push shift unshift split sort reverse
+		 */
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				list: [{
+						value: 'hello',
+						id: '125321'
+					},
+					{
+						value: 'dell',
+						id: '125322'
+					},
+					{
+						value: 'lee',
+						id: '125323'
+					},
+					{
+						value: 'nice',
+						id: '125324'
+					},
+					{
+						value: 'to',
+						id: '125325'
+					},
+					{
+						value: 'you',
+						id: '125326'
+					}
+				],
+				userInfo: {
+					name: '隔壁老王',
+					age: 28,
+					male: 'gender',
+					secret: 'salary'
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>

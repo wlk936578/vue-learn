@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Vue中的插槽(slot)</title>
+</head>
+
+<body>
+	<div id="app">
+		<!-- <child content="<p>Dell</p>"></child> -->
+		<!-- 组件内可自定义插槽内容，即插即用。且通过命名后更加灵活 -->
+		<child>
+			<div class="header" slot="header"> 插槽 头部 header</div>
+			<div class="footer" slot="footer">插槽 尾部 footer</div>
+		</child>
+	</div>
+
+	<script src="./vue.js"></script>
+	<script>
+		Vue.prototype.bus = new Vue()
+		Vue.component('child', {
+			props: ['content'],
+			// template: `<div>
+			// 						<p>hello</p>
+			// 						<div v-html="this.content"></div>
+			// 					</div>`,
+			// slot 插槽可以定义默认插槽 
+			template: `<div>
+									<p>hello</p>
+									<slot name="header"></slot>
+									<div class="content">固定内容 content</div>
+									<slot name="footer"></slot>
+								</div>`
+		})
+		var vm = new Vue({
+			el: '#app',
+		});
+	</script>
+</body>
+
+</html>

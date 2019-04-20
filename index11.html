@@ -10,12 +10,7 @@
 
 <body>
 	<div id="app">
-
-		<!-- v-text 里面必为 一个变量的值 -->
-		<!-- v-html 里面必为 一个变量的值(可以读取html标签) -->
-		<div v-text="name + ' line'"></div>
-		<div v-html="name + ' handle'"></div>
-		{{name}} -- 插值表达式
+		{{fullName}}
 	</div>
 
 	<script src="./vue.js"></script>
@@ -24,9 +19,25 @@
 		let vm = new Vue({
 			el: '#app',
 			data: {
-				name: '<h1>dell</h1>'
+				firstName: 'Dell',
+				lastName: 'Lee'
 			},
-
+			computed: {
+				// fullName() {
+				// 	return this.firstName + ' ' + this.lastName
+				// }
+				fullName: {
+					get() { // 通过其他的值算出一个新值
+						return this.firstName + " " + this.lastName
+					},
+					set(val) { // 可以设置一个值来改变相关的值
+						var arr = val.split(' ')
+						this.firstName = arr[0]
+						this.lastName = arr[1]
+						console.log(val)
+					}
+				}
+			},
 		});
 	</script>
 </body>

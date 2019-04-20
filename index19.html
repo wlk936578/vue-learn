@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>组件绑定原生事件</title>
+</head>
+
+<body>
+	<div id="app">
+		<!-- 可以使用click.native 直接 绑定到原生事件上 -->
+		<child @click.native="handleClick"></child>
+	</div>
+
+	<script src="./vue.js"></script>
+	<script>
+		Vue.component('child', {
+			template: '<div @click="handleChildClick">Child</div>',
+			methods: {
+				handleChildClick: function () {
+					console.log(123)
+					// this.$emit('click') // 此处不使用 emit 方法 则不会 触发 父组件方法的调用(方法一)
+				}
+			},
+		})
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				total: 1
+			},
+			methods: {
+				handleClick() {
+					console.log(2345678)
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>

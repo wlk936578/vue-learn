@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>模板语法 条件渲染</title>
+</head>
+
+<body>
+	<div id="app">
+		<!-- <div v-if="show" data-test="v-if">{{message}}</div>
+		<div v-show="show" data-test="v-show">{{message}}</div> -->
+		<!-- <div v-if="show === 'a'">this is a</div>
+		<div v-else-if="show === 'b'">this is b</div>
+		<div v-else>this is others</div> -->
+
+		<!-- v-if 坑点 此处不标key值，vue会进行复用组件，无法清空input里的值 -->
+		<div v-if="show">
+			用户名：<input key="userName" />
+		</div>
+		<div v-else>
+			密码：<input key="passWord" />
+		</div>
+	</div>
+
+	<script src="./vue.js"></script>
+	<script>
+		// 生命周期函数就是vue实例在某个时间点会自动执行的函数
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				firstName: 'Dell',
+				lastName: 'Lee',
+				message: 'Hello World',
+				show: true
+			}
+		});
+	</script>
+</body>
+
+</html>

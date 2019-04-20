@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>vue 中的 Js 动画 与 Velocity.js 结合</title>
+</head>
+
+<body>
+	<div id="app">
+		<!-- animate css 动效 需要 先赋予类 animated 以及你想要的效果 -->
+		<!-- type 指向 谁的动画时长较长 则 谁的时长为准 -->
+		<transition name="fade" @before-enter="handleBeforeEnter" @enter="handleEnter" @after-enter="handleAfterEnter">
+			<div v-if="show">hello world</div>
+		</transition>
+		<button @click="handleClick">切换</button>
+	</div>
+	<script src="../vue.js"></script>
+	<script src="../velocity.js"></script>
+	<script>
+		let app = new Vue({
+			el: '#app',
+			data: {
+				content: 'hello world',
+				show: true
+			},
+			methods: {
+				handleClick() {
+					this.show = !this.show
+				},
+				handleBeforeEnter(el) {
+					console.log('beforeEnter ====>')
+					el.style.opacity = 0
+				},
+				handleEnter(el, done) {
+					Velocity(el, {
+						opacity: 1
+					}, {
+						duration: 1000,
+						complete: done
+					})
+				},
+				handleAfterEnter(el) {
+					console.log('handleAfterEnter ====>')
+					setTimeout(() => {
+						el.style.color = 'green'
+					}, 1000)
+
+				}
+			},
+		});
+	</script>
+</body>
+
+</html>
